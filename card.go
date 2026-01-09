@@ -1,31 +1,32 @@
-package card
+package deck
 
 import "fmt"
 
-type Suite string
-type Rank string
+type Suite int
+type Rank int
 
 const (
-	Spades   Suite = "Spades"
-	Clubs    Suite = "Clubs"
-	Diamonds Suite = "Diamonds"
-	Hearts   Suite = "Hearts"
+	Spades Suite = iota
+	Clubs
+	Diamonds
+	Hearts
 )
 
 const (
-	Ace   Rank = "Ace"
-	Two   Rank = "Two"
-	Three Rank = "Three"
-	Four  Rank = "Four"
-	Five  Rank = "Five"
-	Six   Rank = "Six"
-	Seven Rank = "Seven"
-	Eight Rank = "Eight"
-	Nine  Rank = "Nine"
-	Ten   Rank = "Ten"
-	Jack  Rank = "Jack"
-	Queen Rank = "Queen"
-	King  Rank = "King"
+	_ Rank = iota
+	Ace
+	Two
+	Three
+	Four
+	Five
+	Six
+	Seven
+	Eight
+	Nine
+	Ten
+	Jack
+	Queen
+	King
 )
 
 type Card struct {
@@ -38,5 +39,5 @@ func (c Card) Is(rank Rank, suite Suite) bool {
 }
 
 func (c Card) String() string {
-	return fmt.Sprintf("%s of %s", c.Rank, c.Suite)
+	return fmt.Sprintf("%d of %d", c.Rank, c.Suite)
 }

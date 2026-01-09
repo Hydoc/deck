@@ -1,9 +1,8 @@
-package card
+package deck
 
 import "testing"
 
 func Test_NewDeck(t *testing.T) {
-
 	tests := []struct {
 		name          string
 		wantSize      int
@@ -28,10 +27,10 @@ func Test_NewDeck(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := NewDeck(false, tt.amountOfDecks)
+			cards := New(Deck(tt.amountOfDecks))
 
-			if tt.wantSize != len(d.Cards) {
-				t.Errorf("want size %d, got %d", tt.wantSize, len(d.Cards))
+			if tt.wantSize != len(cards) {
+				t.Errorf("want size %d, got %d", tt.wantSize, len(cards))
 			}
 		})
 	}
@@ -41,46 +40,46 @@ func TestDeck_Draw(t *testing.T) {
 	tests := []struct {
 		name      string
 		wantSize  int
-		setup     func(d *Deck) Card
+		setup     func(cards []Card) (Card, []Card)
 		wantSuite Suite
 		wantRank  Rank
 	}{
 		{
 			name:     "draw a card",
 			wantSize: 51,
-			setup: func(d *Deck) Card {
-				return d.Draw()
+			setup: func(cards []Card) (Card, []Card) {
+				return Draw(cards)
 			},
 			wantSuite: Hearts,
-			wantRank:  Ace,
+			wantRank:  King,
 		},
 		{
 			name:     "draw two cards",
 			wantSize: 50,
-			setup: func(d *Deck) Card {
-				d.Draw()
-				return d.Draw()
+			setup: func(cards []Card) (Card, []Card) {
+				_, r := Draw(cards)
+				return Draw(r)
 			},
 			wantSuite: Hearts,
-			wantRank:  King,
+			wantRank:  Queen,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := NewDeck(false, 1)
-			card := tt.setup(d)
+			cards := New()
+			card, remaining := tt.setup(cards)
 
-			if tt.wantSize != len(d.Cards) {
-				t.Errorf("want size %d, got %d", tt.wantSize, len(d.Cards))
+			if tt.wantSize != len(remaining) {
+				t.Errorf("want size %d, got %d", tt.wantSize, len(remaining))
 			}
 
 			if tt.wantSuite != card.Suite {
-				t.Errorf("want suite %s, got %s", tt.wantSuite, card.Suite)
+				t.Errorf("want suite %d, got %d", tt.wantSuite, card.Suite)
 			}
 
 			if tt.wantRank != card.Rank {
-				t.Errorf("want rank %s, got %s", tt.wantRank, card.Rank)
+				t.Errorf("want rank %d, got %d", tt.wantRank, card.Rank)
 			}
 		})
 	}

@@ -1,44 +1,44 @@
-package card
+package deck
 
 import "math/rand/v2"
 
-type Deck struct {
-	Cards []Card
+var Suites = []Suite{Spades, Diamonds, Clubs, Hearts}
+var Ranks = []Rank{Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King}
+
+func Draw(cards []Card) (Card, []Card) {
+	return cards[len(cards)-1], cards[:len(cards)-1]
 }
 
-func (d *Deck) Draw() Card {
-	card, cards := d.Cards[len(d.Cards)-1], d.Cards[:len(d.Cards)-1]
-	d.Cards = cards
-	return card
-}
-
-func (d *Deck) Shuffle() {
-	rand.Shuffle(len(d.Cards), func(i, j int) {
-		d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i]
+func Shuffle(cards []Card) []Card {
+	out := make([]Card, len(cards))
+	rand.Shuffle(len(cards), func(i, j int) {
+		out[i], out[j] = cards[j], cards[i]
 	})
+	return out
 }
 
-func NewDeck(shuffle bool, amount int) *Deck {
-	suites := []Suite{Spades, Clubs, Diamonds, Hearts}
-	ranks := []Rank{Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace}
-	cards := make([]Card, 0)
+func New(opts ...func([]Card) []Card) []Card {
+	var cards []Card
 
-	for i := 0; i < amount; i++ {
-		for _, s := range suites {
-			for _, r := range ranks {
-				cards = append(cards, Card{Suite: s, Rank: r})
-			}
+	for _, s := range Suites {
+		for _, r := range Ranks {
+			cards = append(cards, Card{Suite: s, Rank: r})
 		}
-
 	}
 
-	deck := &Deck{
-		Cards: cards,
+	for _, opt := range opts {
+		cards = opt(cards)
 	}
 
-	if shuffle {
-		deck.Shuffle()
-	}
+	return cards
+}
 
-	return deck
+func Deck(amount int) func([]Card) []Card {
+	return func(cards []Card) []Card {
+		var out []Card
+		for range amount {
+			out = append(out, cards...)
+		}
+		return out
+	}
 }

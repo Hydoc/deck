@@ -1,4 +1,4 @@
-module github.com/Hydoc/card
+module github.com/Hydoc/deck
 
 go 1.25.0
 

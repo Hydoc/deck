@@ -1,4 +1,4 @@
-package card
+package deck
 
 import "testing"
 
@@ -64,7 +64,7 @@ func TestCard_String(t *testing.T) {
 				Suite: Spades,
 				Rank:  Two,
 			},
-			want: "Two of Spades",
+			want: "2 of 0",
 		},
 		{
 			name: "ace of hearts",
@@ -72,7 +72,7 @@ func TestCard_String(t *testing.T) {
 				Suite: Hearts,
 				Rank:  Ace,
 			},
-			want: "Ace of Hearts",
+			want: "1 of 3",
 		},
 	}
 
