@@ -2,7 +2,7 @@ package deck
 
 import "math/rand/v2"
 
-var Suites = []Suit{Spade, Diamond, Club, Heart}
+var Suits = []Suit{Spade, Diamond, Club, Heart}
 var Ranks = []Rank{Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King}
 
 func Draw(cards []Card) (Card, []Card) {
@@ -20,7 +20,7 @@ func Shuffle(cards []Card) []Card {
 func New(opts ...func([]Card) []Card) []Card {
 	var cards []Card
 
-	for _, s := range Suites {
+	for _, s := range Suits {
 		for _, r := range Ranks {
 			cards = append(cards, Card{Suit: s, Rank: r})
 		}

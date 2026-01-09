@@ -1,4 +1,4 @@
-//go:generate stringer -type=Suite,Rank
+//go:generate stringer -type=Suit,Rank
 
 package deck
 
@@ -37,8 +37,8 @@ type Card struct {
 	Rank Rank
 }
 
-func (c Card) Is(rank Rank, suite Suit) bool {
-	return c.Rank == rank && c.Suit == suite
+func (c Card) Is(rank Rank, suit Suit) bool {
+	return c.Rank == rank && c.Suit == suit
 }
 
 func (c Card) String() string {

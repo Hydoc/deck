@@ -15,16 +15,16 @@ func _() {
 	_ = x[Joker-4]
 }
 
-const _Suite_name = "SpadeClubDiamondHeartJoker"
+const _Suit_name = "SpadeClubDiamondHeartJoker"
 
-var _Suite_index = [...]uint8{0, 5, 9, 16, 21, 26}
+var _Suit_index = [...]uint8{0, 5, 9, 16, 21, 26}
 
 func (i Suit) String() string {
 	idx := int(i) - 0
-	if i < 0 || idx >= len(_Suite_index)-1 {
+	if i < 0 || idx >= len(_Suit_index)-1 {
 		return "Suit(" + strconv.FormatInt(int64(i), 10) + ")"
 	}
-	return _Suite_name[_Suite_index[idx]:_Suite_index[idx+1]]
+	return _Suit_name[_Suit_index[idx]:_Suit_index[idx+1]]
 }
 func _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.

@@ -38,11 +38,11 @@ func Test_NewDeck(t *testing.T) {
 
 func TestDeck_Draw(t *testing.T) {
 	tests := []struct {
-		name      string
-		wantSize  int
-		setup     func(cards []Card) (Card, []Card)
-		wantSuite Suit
-		wantRank  Rank
+		name     string
+		wantSize int
+		setup    func(cards []Card) (Card, []Card)
+		wantSuit Suit
+		wantRank Rank
 	}{
 		{
 			name:     "draw a card",
@@ -50,8 +50,8 @@ func TestDeck_Draw(t *testing.T) {
 			setup: func(cards []Card) (Card, []Card) {
 				return Draw(cards)
 			},
-			wantSuite: Heart,
-			wantRank:  King,
+			wantSuit: Heart,
+			wantRank: King,
 		},
 		{
 			name:     "draw two cards",
@@ -60,8 +60,8 @@ func TestDeck_Draw(t *testing.T) {
 				_, r := Draw(cards)
 				return Draw(r)
 			},
-			wantSuite: Heart,
-			wantRank:  Queen,
+			wantSuit: Heart,
+			wantRank: Queen,
 		},
 	}
 
@@ -74,8 +74,8 @@ func TestDeck_Draw(t *testing.T) {
 				t.Errorf("want size %d, got %d", tt.wantSize, len(remaining))
 			}
 
-			if tt.wantSuite != card.Suit {
-				t.Errorf("want suite %d, got %d", tt.wantSuite, card.Suit)
+			if tt.wantSuit != card.Suit {
+				t.Errorf("want suit %d, got %d", tt.wantSuit, card.Suit)
 			}
 
 			if tt.wantRank != card.Rank {

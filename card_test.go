@@ -4,11 +4,11 @@ import "testing"
 
 func TestCard_Is(t *testing.T) {
 	tests := []struct {
-		name  string
-		card  Card
-		rank  Rank
-		suite Suit
-		want  bool
+		name string
+		card Card
+		rank Rank
+		suit Suit
+		want bool
 	}{
 		{
 			name: "is requested card",
@@ -16,19 +16,19 @@ func TestCard_Is(t *testing.T) {
 				Suit: Spade,
 				Rank: Two,
 			},
-			rank:  Two,
-			suite: Spade,
-			want:  true,
+			rank: Two,
+			suit: Spade,
+			want: true,
 		},
 		{
-			name: "suite does not match",
+			name: "suit does not match",
 			card: Card{
 				Suit: Spade,
 				Rank: Two,
 			},
-			rank:  Two,
-			suite: Heart,
-			want:  false,
+			rank: Two,
+			suit: Heart,
+			want: false,
 		},
 		{
 			name: "rank does not match",
@@ -36,15 +36,15 @@ func TestCard_Is(t *testing.T) {
 				Suit: Heart,
 				Rank: Ace,
 			},
-			rank:  Two,
-			suite: Heart,
-			want:  false,
+			rank: Two,
+			suit: Heart,
+			want: false,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := tt.card.Is(tt.rank, tt.suite)
+			got := tt.card.Is(tt.rank, tt.suit)
 			if tt.want != got {
 				t.Errorf("want %v, got %v", tt.want, got)
 			}
