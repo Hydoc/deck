@@ -7,37 +7,37 @@ func TestCard_Is(t *testing.T) {
 		name  string
 		card  Card
 		rank  Rank
-		suite Suite
+		suite Suit
 		want  bool
 	}{
 		{
 			name: "is requested card",
 			card: Card{
-				Suite: Spades,
-				Rank:  Two,
+				Suit: Spade,
+				Rank: Two,
 			},
 			rank:  Two,
-			suite: Spades,
+			suite: Spade,
 			want:  true,
 		},
 		{
 			name: "suite does not match",
 			card: Card{
-				Suite: Spades,
-				Rank:  Two,
+				Suit: Spade,
+				Rank: Two,
 			},
 			rank:  Two,
-			suite: Hearts,
+			suite: Heart,
 			want:  false,
 		},
 		{
 			name: "rank does not match",
 			card: Card{
-				Suite: Hearts,
-				Rank:  Ace,
+				Suit: Heart,
+				Rank: Ace,
 			},
 			rank:  Two,
-			suite: Hearts,
+			suite: Heart,
 			want:  false,
 		},
 	}
@@ -61,18 +61,26 @@ func TestCard_String(t *testing.T) {
 		{
 			name: "two of spades",
 			card: Card{
-				Suite: Spades,
-				Rank:  Two,
+				Suit: Spade,
+				Rank: Two,
 			},
-			want: "2 of 0",
+			want: "Two of Spades",
 		},
 		{
 			name: "ace of hearts",
 			card: Card{
-				Suite: Hearts,
-				Rank:  Ace,
+				Suit: Heart,
+				Rank: Ace,
 			},
-			want: "1 of 3",
+			want: "Ace of Hearts",
+		},
+		{
+			name: "joker",
+			card: Card{
+				Suit: Joker,
+				Rank: Two,
+			},
+			want: "Joker",
 		},
 	}
 

@@ -2,7 +2,7 @@ package deck
 
 import "math/rand/v2"
 
-var Suites = []Suite{Spades, Diamonds, Clubs, Hearts}
+var Suites = []Suit{Spade, Diamond, Club, Heart}
 var Ranks = []Rank{Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King}
 
 func Draw(cards []Card) (Card, []Card) {
@@ -22,7 +22,7 @@ func New(opts ...func([]Card) []Card) []Card {
 
 	for _, s := range Suites {
 		for _, r := range Ranks {
-			cards = append(cards, Card{Suite: s, Rank: r})
+			cards = append(cards, Card{Suit: s, Rank: r})
 		}
 	}
 
@@ -31,6 +31,17 @@ func New(opts ...func([]Card) []Card) []Card {
 	}
 
 	return cards
+}
+
+func Jokers(amount int) func([]Card) []Card {
+	return func(cards []Card) []Card {
+		for range amount {
+			cards = append(cards, Card{
+				Suit: Joker,
+			})
+		}
+		return cards
+	}
 }
 
 func Decks(amount int) func([]Card) []Card {

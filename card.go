@@ -1,15 +1,18 @@
+//go:generate stringer -type=Suite,Rank
+
 package deck
 
 import "fmt"
 
-type Suite int
+type Suit int
 type Rank int
 
 const (
-	Spades Suite = iota
-	Clubs
-	Diamonds
-	Hearts
+	Spade Suit = iota
+	Club
+	Diamond
+	Heart
+	Joker
 )
 
 const (
@@ -30,14 +33,17 @@ const (
 )
 
 type Card struct {
-	Suite Suite
-	Rank  Rank
+	Suit Suit
+	Rank Rank
 }
 
-func (c Card) Is(rank Rank, suite Suite) bool {
-	return c.Rank == rank && c.Suite == suite
+func (c Card) Is(rank Rank, suite Suit) bool {
+	return c.Rank == rank && c.Suit == suite
 }
 
 func (c Card) String() string {
-	return fmt.Sprintf("%d of %d", c.Rank, c.Suite)
+	if c.Suit != Joker {
+		return fmt.Sprintf("%s of %ss", c.Rank, c.Suit)
+	}
+	return c.Suit.String()
 }
