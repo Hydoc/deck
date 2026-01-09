@@ -37,6 +37,7 @@ type Card struct {
 	Rank Rank
 }
 
+// Is checks if a card is a specific card by checking Rank and Suit.
 func (c Card) Is(rank Rank, suit Suit) bool {
 	return c.Rank == rank && c.Suit == suit
 }

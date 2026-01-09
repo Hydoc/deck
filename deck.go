@@ -5,10 +5,16 @@ import "math/rand/v2"
 var Suits = []Suit{Spade, Diamond, Club, Heart}
 var Ranks = []Rank{Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King}
 
-func Draw(cards []Card) (Card, []Card) {
-	return cards[len(cards)-1], cards[:len(cards)-1]
+// Draw draws the given amount of cards and returns it as the first return value.
+// The second return value are the remaining cards in the deck.
+func Draw(amount int) func(cards []Card) ([]Card, []Card) {
+	return func(cards []Card) ([]Card, []Card) {
+		return cards[len(cards)-amount:], cards[:len(cards)-amount]
+	}
 }
 
+// Shuffle is an option when creating a deck using New.
+// It randomizes the deck.
 func Shuffle(cards []Card) []Card {
 	out := make([]Card, len(cards))
 	rand.Shuffle(len(cards), func(i, j int) {
@@ -17,6 +23,8 @@ func Shuffle(cards []Card) []Card {
 	return out
 }
 
+// New creates a new 52 card deck using the default Suits Spade, Diamond, Club and Heart
+// Can take options to configure it as desired.
 func New(opts ...func([]Card) []Card) []Card {
 	var cards []Card
 
@@ -33,6 +41,8 @@ func New(opts ...func([]Card) []Card) []Card {
 	return cards
 }
 
+// Jokers is an option when creating a deck using New.
+// It puts the passed amount of jokers, with the Suit Joker, in the deck without a Rank.
 func Jokers(amount int) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		for range amount {
@@ -44,6 +54,8 @@ func Jokers(amount int) func([]Card) []Card {
 	}
 }
 
+// Filter is an option when creating a deck using New.
+// It filters the deck using the passed function.
 func Filter(f func(Card) bool) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		var out []Card
@@ -56,6 +68,8 @@ func Filter(f func(Card) bool) func([]Card) []Card {
 	}
 }
 
+// Decks is an option when creating a deck using New.
+// It creates the passed amount of decks, so 52 * amount.
 func Decks(amount int) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		var out []Card
