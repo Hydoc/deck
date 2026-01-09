@@ -36,6 +36,35 @@ func Test_NewDeck(t *testing.T) {
 	}
 }
 
+func TestDeck_Jokers(t *testing.T) {
+	tests := []struct {
+		name           string
+		wantSize       int
+		amountOfJokers int
+	}{
+		{
+			name:           "with one joker",
+			wantSize:       53,
+			amountOfJokers: 1,
+		},
+		{
+			name:           "with two jokers",
+			wantSize:       54,
+			amountOfJokers: 2,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cards := New(Jokers(tt.amountOfJokers))
+
+			if tt.wantSize != len(cards) {
+				t.Errorf("want size %d, got %d", tt.wantSize, len(cards))
+			}
+		})
+	}
+}
+
 func TestDeck_Draw(t *testing.T) {
 	tests := []struct {
 		name     string
