@@ -44,14 +44,16 @@ func Jokers(amount int) func([]Card) []Card {
 	}
 }
 
-func Filter(cards []Card, f func(Card) bool) []Card {
-	var out []Card
-	for _, card := range cards {
-		if f(card) {
-			out = append(out, card)
+func Filter(f func(Card) bool) func([]Card) []Card {
+	return func(cards []Card) []Card {
+		var out []Card
+		for _, card := range cards {
+			if f(card) {
+				out = append(out, card)
+			}
 		}
+		return out
 	}
-	return out
 }
 
 func Decks(amount int) func([]Card) []Card {

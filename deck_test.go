@@ -96,7 +96,7 @@ func TestDeck_Filter(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cards := Filter(New(), tt.filter)
+			cards := New(Filter(tt.filter))
 
 			if tt.wantSize != len(cards) {
 				t.Errorf("want size %d, got %d", tt.wantSize, len(cards))
