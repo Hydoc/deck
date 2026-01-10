@@ -16,8 +16,8 @@ func Draw(amount int) func(cards []Card) ([]Card, []Card) {
 	}
 }
 
-// Shuffle is an option when creating a deck using New.
-// It randomizes the deck.
+// Shuffle randomizes the deck.
+// Can be used as an option when creating a deck using New.
 func Shuffle(cards []Card) []Card {
 	out := make([]Card, len(cards))
 	rand.Shuffle(len(cards), func(i, j int) {
@@ -44,8 +44,8 @@ func New(opts ...func([]Card) []Card) []Card {
 	return cards
 }
 
-// Jokers is an option when creating a deck using New.
-// It puts the passed amount of jokers, with the Suit Joker, in the deck without a Rank.
+// Jokers puts the passed amount of jokers, with the Suit Joker, in the deck without a Rank.
+// Can be used as an option when creating a deck using New.
 func Jokers(amount int) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		for range amount {
@@ -57,7 +57,8 @@ func Jokers(amount int) func([]Card) []Card {
 	}
 }
 
-// Sort takes a less function and applies it to the cards
+// Sort takes a less function and applies it to the cards.
+// Can be used as an option when creating a deck using New.
 func Sort(less func(cards []Card) func(i, j int) bool) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		sort.Slice(cards, less(cards))
@@ -66,6 +67,7 @@ func Sort(less func(cards []Card) func(i, j int) bool) func([]Card) []Card {
 }
 
 // DefaultSort sorts the cards using the Less function
+// Can be used as an option when creating a deck using New.
 func DefaultSort(cards []Card) []Card {
 	sort.Slice(cards, Less(cards))
 	return cards
@@ -78,8 +80,8 @@ func Less(cards []Card) func(i, j int) bool {
 	}
 }
 
-// Filter is an option when creating a deck using New.
-// It filters the deck using the passed function.
+// Filter applies the given filter to the deck and returns it.
+// Can be used as an option when creating a deck using New.
 func Filter(f func(Card) bool) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		var out []Card
@@ -92,8 +94,8 @@ func Filter(f func(Card) bool) func([]Card) []Card {
 	}
 }
 
-// Decks is an option when creating a deck using New.
-// It creates the passed amount of decks, so 52 * amount.
+// Decks puts the given amount of decks in a deck (52 * amount).
+// Can be used as an option when creating a deck using New.
 func Decks(amount int) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		var out []Card
